@@ -11,6 +11,17 @@ class CRUDUser:
         selectinload(User.shifts),
     )
 
+    async def get_user_id_by_telegram_id(
+        self,
+        telegram_id: int,
+        session: AsyncSession,
+    ) -> int | None:
+        result = await session.execute(
+            select(User.id)
+            .where(User.telegram_id == telegram_id)
+        )
+        return result.scalar_one_or_none()
+
     async def get_by_telegram_id_or_none(
         self,
         telegram_id: int,
