@@ -36,7 +36,6 @@ class CRUDUser:
     
         session.add(user)
         await session.commit()
-        await session.refresh(user)  # TODO: нужно убрать!  
         return UserResponse.model_validate(user)
 
 
