@@ -4,7 +4,7 @@ from pydantic import BaseModel, ConfigDict
 class UserBase(BaseModel):
     telegram_id: int
     username: str
-    hourly_rate: int
+    hourly_rate: int | None
 
 
 class UserCreate(UserBase):

@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 
 from src.core.dependencies import SessionDep
 from src.crud.user import user_crud
@@ -14,4 +14,10 @@ async def registration(
     data: UserCreate,
     session: SessionDep,
 ):
-    return await user_crud.create_user(data, session)
+    if await user_crud.get_by_telegram_id_or_none(data.telegram_id, session):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User already exists",
+        )
+    else:
+        return await user_crud.create_user(data, session)

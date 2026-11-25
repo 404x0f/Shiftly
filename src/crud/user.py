@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from src.models.user import User
-from src.schemas.user import UserCreate
+from src.schemas.user import UserCreate, UserResponse
 
 
 class CRUDUser:
@@ -11,23 +11,24 @@ class CRUDUser:
         selectinload(User.shifts),
     )
 
+    async def get_by_telegram_id_or_none(
+        self,
+        telegram_id: int,
+        session: AsyncSession,
+    ) -> User | None:
+        """Получить пользователя по телеграм id или вернуть None."""
+        result = await session.execute(
+            select(User)
+            .where(User.telegram_id == telegram_id)
+        )
+        return result.scalar_one_or_none()
+
     async def create_user(
         self,
         obj_in: UserCreate,
         session: AsyncSession,
-    ) -> User:
+    ) -> UserResponse:
         """Создание нового пользователя."""
-        result = await session.execute(
-            select(User).where(
-                User.telegram_id == obj_in.telegram_id
-            )
-        )
-    
-        user = result.scalar_one_or_none()
-    
-        if user:
-            return user
-    
         user = User(
             telegram_id=obj_in.telegram_id,
             username=obj_in.username,
@@ -36,7 +37,7 @@ class CRUDUser:
         session.add(user)
         await session.commit()
         await session.refresh(user)  # TODO: нужно убрать!  
-        return user
+        return UserResponse.model_validate(user)
 
 
 user_crud = CRUDUser()
