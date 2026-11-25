@@ -7,6 +7,21 @@ class APIClient:
     def __init__(self):
         self.base_url = settings.api_url
 
+    async def get_user(self, telegram_id: int):
+        async with httpx.AsyncClient(
+        base_url=self.base_url,
+        ) as client:
+            response = await client.get(
+                f"/api/v1/user/{telegram_id}"
+            )
+
+            if response.status_code == 404:
+                return None
+
+            response.raise_for_status()
+
+            return response.json()
+
     async def registration_user(self, data: dict):
         async with httpx.AsyncClient(
             base_url=self.base_url,

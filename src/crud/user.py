@@ -27,7 +27,7 @@ class CRUDUser:
         telegram_id: int,
         session: AsyncSession,
     ) -> User | None:
-        """Получить пользователя по телеграм id или вернуть None."""
+        """Получить пользователя по телеграм id."""
         result = await session.execute(
             select(User)
             .where(User.telegram_id == telegram_id)
