@@ -22,4 +22,5 @@ async def registration(
     else:
         return await user_crud.create_user(data.telegram_id,
                                            data.username,
+                                           data.hourly_rate,
                                            session)

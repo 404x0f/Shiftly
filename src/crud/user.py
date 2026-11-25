@@ -38,12 +38,14 @@ class CRUDUser:
         self,
         telegram_id: int,
         username: str,
+        hourly_rate: int,
         session: AsyncSession,
     ) -> UserResponse:
         """Создание нового пользователя."""
         user = User(
             telegram_id=telegram_id,
             username=username,
+            hourly_rate=hourly_rate
         )
     
         session.add(user)
