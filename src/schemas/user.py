@@ -4,10 +4,12 @@ from pydantic import BaseModel, ConfigDict
 class UserBase(BaseModel):
     telegram_id: int
     username: str
+    hourly_rate: int
 
 
 class UserCreate(UserBase):
     pass
+
 
 class UserResponse(UserBase):
     id: int

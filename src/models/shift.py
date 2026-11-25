@@ -1,7 +1,7 @@
 from datetime import time
 
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.core.base_model import Base
 
@@ -18,3 +18,6 @@ class Shift(Base):
     date: Mapped[int] = mapped_column(nullable=False)
     start_time: Mapped[time] = mapped_column(nullable=False)
     end_time: Mapped[time] = mapped_column(nullable=False)
+    user: Mapped['User'] = relationship(
+        back_populates='shifts',
+    )
