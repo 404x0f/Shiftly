@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     project_name: str = 'Shitfly App'
     api_prefix: str = ''
     version: str = ''
+    api_url: str = ''
 
     database_host: str = 'localhost'
     postgres_db: str
@@ -13,7 +14,7 @@ class Settings(BaseSettings):
     postgres_password: str
     postgres_port: int = 5432
 
-    telegram_bot_token: str = ''
+    telegram_bot_token: str
 
     @property
     def resolved_database_url(self) -> URL:

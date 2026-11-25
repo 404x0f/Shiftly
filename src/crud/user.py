@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from src.models.user import User
-from src.schemas.user import UserCreate, UserResponse
+from src.schemas.user import UserResponse
 
 
 class CRUDUser:
@@ -36,13 +36,14 @@ class CRUDUser:
 
     async def create_user(
         self,
-        obj_in: UserCreate,
+        telegram_id: int,
+        username: str,
         session: AsyncSession,
     ) -> UserResponse:
         """Создание нового пользователя."""
         user = User(
-            telegram_id=obj_in.telegram_id,
-            username=obj_in.username,
+            telegram_id=telegram_id,
+            username=username,
         )
     
         session.add(user)

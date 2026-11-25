@@ -20,4 +20,6 @@ async def registration(
             detail="User already exists",
         )
     else:
-        return await user_crud.create_user(data, session)
+        return await user_crud.create_user(data.telegram_id,
+                                           data.username,
+                                           session)

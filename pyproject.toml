@@ -12,6 +12,8 @@ dependencies = [
     "alembic",
     "pydantic>=2.14.3",
     "ruff>=0.17.5",
+    "aiogram>=3.34.0",
+    "httpx>=0.28.1",
 ]
 
 [tool.ruff]
