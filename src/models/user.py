@@ -5,7 +5,7 @@ from src.core.base_model import Base
 
 
 class User(Base):
-    __tablename__ = "user"
+    __tablename__ = 'user'
 
     id: Mapped[int] = mapped_column(primary_key=True)
 

@@ -7,15 +7,14 @@ from src.core.base_model import Base
 
 
 class Shift(Base):
-    __tablename__ = "shift"
+    __tablename__ = 'shift'
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
-    schedule_id: Mapped[int] = mapped_column(
-        ForeignKey("schedule.id"),
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey('user.id'),
         nullable=False,
     )
     date: Mapped[int] = mapped_column(nullable=False)
     start_time: Mapped[time] = mapped_column(nullable=False)
     end_time: Mapped[time] = mapped_column(nullable=False)
-    hourly_rate: Mapped[int] = mapped_column(nullable=False)

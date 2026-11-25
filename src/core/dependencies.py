@@ -23,7 +23,7 @@ session_maker: async_sessionmaker[AsyncSession] = async_sessionmaker(
 
 
 async def get_session() -> AsyncIterator[AsyncSession]:
-    """Получение асинхронной сессии."""
+    '''Получение асинхронной сессии.'''
     session = session_maker()
     try:
         yield session
